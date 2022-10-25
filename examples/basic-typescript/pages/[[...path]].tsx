@@ -17,7 +17,9 @@ type ParsedUrlQuery = { path?: string[] }
 export async function getStaticPaths(): Promise<
   GetStaticPathsResult<ParsedUrlQuery>
 > {
-  const makeswift = new Makeswift(process.env.MAKESWIFT_SITE_API_KEY!)
+  const makeswift = new Makeswift(process.env.MAKESWIFT_SITE_API_KEY!, {
+    apiOrigin: 'https://2a5c-103-121-23-22.ap.ngrok.io'
+  })
   const pages = await makeswift.getPages()
 
   return {
@@ -35,7 +37,9 @@ type Props = MakeswiftPageProps
 export async function getStaticProps(
   ctx: GetStaticPropsContext<ParsedUrlQuery>,
 ): Promise<GetStaticPropsResult<Props>> {
-  const makeswift = new Makeswift(process.env.MAKESWIFT_SITE_API_KEY!)
+  const makeswift = new Makeswift(process.env.MAKESWIFT_SITE_API_KEY!, {
+    apiOrigin: 'https://2a5c-103-121-23-22.ap.ngrok.io'
+  })
   const path = '/' + (ctx.params?.path ?? []).join('/')
   const snapshot = await makeswift.getPageSnapshot(path, {
     preview: ctx.preview,
