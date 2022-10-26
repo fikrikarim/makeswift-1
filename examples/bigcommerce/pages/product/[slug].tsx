@@ -28,7 +28,9 @@ export async function getStaticProps(
   ctx: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<Props>> {
   const config = getConfig()
-  const makeswift = new Makeswift(config.makeswift.siteApiKey)
+  const makeswift = new Makeswift(config.makeswift.siteApiKey, {
+    apiOrigin: 'https://api-review-fikri-prd-616.cd.makeswift.com'
+  })
 
   const snapshot = await makeswift.getPageSnapshot(config.makeswift.productTemplatePathname, {
     preview: ctx.preview,

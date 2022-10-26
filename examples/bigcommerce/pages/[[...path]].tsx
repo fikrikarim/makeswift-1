@@ -16,7 +16,9 @@ type Props = MakeswiftPageProps & PageProps
 
 export async function getStaticPaths() {
   const config = getConfig()
-  const makeswift = new Makeswift(config.makeswift.siteApiKey)
+  const makeswift = new Makeswift(config.makeswift.siteApiKey, {
+    apiOrigin: 'https://api-review-fikri-prd-616.cd.makeswift.com'
+  })
   const pages = await makeswift.getPages()
 
   return {
@@ -33,7 +35,9 @@ export async function getStaticProps(
   ctx: GetStaticPropsContext<{ path: string[] }>,
 ): Promise<GetStaticPropsResult<Props>> {
   const config = getConfig()
-  const makeswift = new Makeswift(config.makeswift.siteApiKey)
+  const makeswift = new Makeswift(config.makeswift.siteApiKey, {
+    apiOrigin: 'https://api-review-fikri-prd-616.cd.makeswift.com'
+  })
   const path = '/' + (ctx.params?.path ?? []).join('/')
   const snapshot = await makeswift.getPageSnapshot(path, {
     preview: ctx.preview,
