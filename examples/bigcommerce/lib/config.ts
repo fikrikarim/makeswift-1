@@ -1,7 +1,7 @@
 export type Config = {
   bigcommerce: {
-    storeName: string
-    storeHash: string
+    storeUrl: string
+    storeApiUrl: string
     accessToken: string
     allowedCorsOrigins: string[]
   }
@@ -22,9 +22,9 @@ function getEnvVarOrThrow(key: string): string {
 export function getConfig(): Config {
   return {
     bigcommerce: {
-      accessToken: getEnvVarOrThrow('BIGCOMMERCE_ACCESS_TOKEN'),
-      storeHash: getEnvVarOrThrow('BIGCOMMERCE_STORE_HASH'),
-      storeName: getEnvVarOrThrow('BIGCOMMERCE_STORE_NAME'),
+      accessToken: getEnvVarOrThrow('BIGCOMMERCE_STORE_API_TOKEN'),
+      storeApiUrl: getEnvVarOrThrow('BIGCOMMERCE_STORE_API_URL'),
+      storeUrl: getEnvVarOrThrow('BIGCOMMERCE_STOREFRONT_API_URL'),
       allowedCorsOrigins:
         process.env.NODE_ENV === 'production' && process.env.VERCEL === '1'
           ? [new URL(`https://${getEnvVarOrThrow('VERCEL_URL')}`).origin]

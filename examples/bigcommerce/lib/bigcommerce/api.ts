@@ -17,7 +17,7 @@ const A_WEEK_FROM_NOW = Math.floor(
 export async function getApiToken(): Promise<string> {
   const config = getConfig()
   const response = await fetch(
-    `https://api.bigcommerce.com/stores/${config.bigcommerce.storeHash}/v3/storefront/api-token`,
+    `${config.bigcommerce.storeApiUrl}/v3/storefront/api-token`,
     {
       method: 'POST',
       headers: {
@@ -43,7 +43,7 @@ export async function getProducts(): Promise<ProductFragment[]> {
   const config = getConfig()
   const apiToken = await getApiToken()
   const response = await fetch(
-    `https://${config.bigcommerce.storeName}.mybigcommerce.com/graphql`,
+    config.bigcommerce.storeUrl,
     {
       method: 'POST',
       headers: {
@@ -73,7 +73,7 @@ export async function getCategories(): Promise<Category[]> {
   const config = await getConfig()
   const apiToken = await getApiToken()
   const response = await fetch(
-    `https://${config.bigcommerce.storeName}.mybigcommerce.com/graphql`,
+    config.bigcommerce.storeUrl,
     {
       method: 'POST',
       headers: {
@@ -103,7 +103,7 @@ export async function getProduct(id: number): Promise<ProductFragment | null> {
   const config = getConfig()
   const apiToken = await getApiToken()
   const response = await fetch(
-    `https://${config.bigcommerce.storeName}.mybigcommerce.com/graphql`,
+    config.bigcommerce.storeUrl,
     {
       method: 'POST',
       headers: {
